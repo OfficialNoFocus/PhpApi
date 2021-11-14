@@ -24,10 +24,7 @@ class WineSeeder extends Seeder
         $wine->serveren_op = '12 – 15';
         $wine->ook_lekker_bij = 'Grillades. pittige stoofschotels. dagdagelijkse vleesgerechten en pasta.';
         $wine->prijs = '35.60';
-        $wine->beschrijving = 'Bij deze wijn werd een moderne wijntechniek (maceración carbónica) toegepast waardoor
-                               het aroma beter tot ontwikkeling komt. Deze wijn heeft een purperen. kersenrode kleur.
-                               Een lichtcomplexe wijn met aroma’s van rode vruchten. In de mond een zuivere aanzet
-                               met een aroma van kersen. De wijn heeft zachte zuren en is halfkrachtig.';
+        $wine->beschrijving = 'Bij deze wijn werd een moderne wijntechniek (maceración carbónica) toegepast waardoor het aroma beter tot ontwikkeling komt. Deze wijn heeft een purperen. kersenrode kleur. Een lichtcomplexe wijn met aroma’s van rode vruchten. In de mond een zuivere aanzet met een aroma van kersen. De wijn heeft zachte zuren en is halfkrachtig.';
         $wine->categorie = 'Rode wijn';
         $wine->save();
 

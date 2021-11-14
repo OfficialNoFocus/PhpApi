@@ -14,9 +14,7 @@ class WineController extends Controller
      */
     public function index()
     {
-        $wines = Wine::latest();
-
-        return view($wines);
+        return Wine::all();
     }
 
     /**
@@ -27,7 +25,11 @@ class WineController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $wine = new Wine();
+        $wine->fill($request->toArray());
+        $wine->save();
+
+        return $wine;
     }
 
     /**
@@ -38,7 +40,7 @@ class WineController extends Controller
      */
     public function show(Wine $wine)
     {
-        //
+        return $wine;
     }
 
     /**
@@ -49,8 +51,11 @@ class WineController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Wine $wine)
-    {
-        //
+    {   
+        $wine->fill($request->toArray());
+        $wine->save();
+
+        return $wine;
     }
 
     /**
@@ -61,6 +66,6 @@ class WineController extends Controller
      */
     public function destroy(Wine $wine)
     {
-        //
+        return Wine::destroy($wine->id);
     }
 }
