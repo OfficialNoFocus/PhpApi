@@ -4,6 +4,8 @@ namespace App\Http\Controllers;
 
 use App\Models\Wine;
 use Illuminate\Http\Request;
+use App\Http\Requests\WineRequest;
+
 
 class WineController extends Controller
 {
@@ -23,7 +25,7 @@ class WineController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(WineRequest $request)
     {
         $wine = new Wine();
         $wine->fill($request->toArray());
@@ -50,7 +52,7 @@ class WineController extends Controller
      * @param  \App\Models\Wine  $wine
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Wine $wine)
+    public function update(WineRequest $request, Wine $wine)
     {   
         $wine->fill($request->toArray());
         $wine->save();
