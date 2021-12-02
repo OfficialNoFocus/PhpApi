@@ -3,6 +3,7 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\WineController;
+use App\Http\Controllers\UserController;
 
 
 /*
@@ -23,3 +24,4 @@ Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
 //Route::apiResource('/wines', WineController::class, ['parameters' => ['wine' => 'id']]);
 
 Route::apiResource('/wines', WineController::class);
+Route::apiResource('/user', UserController::class);
