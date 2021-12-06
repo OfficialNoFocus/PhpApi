@@ -16,7 +16,7 @@ class UserController extends Controller
      */
     public function index()
     {
-            return User::all();
+        return User::all();
     }
 
     /**
@@ -32,8 +32,10 @@ class UserController extends Controller
         
         $user->save();
         $user->attachRole($request->role);
-        
-        return $user;
+
+        $token = $user->createToken('ApiAuth')->plainTextToken;
+
+        return $this->sendResponse(['token' => $token],$user, 'Successfully registered.');
     }
 
     /**
