@@ -21,18 +21,19 @@ use App\Http\Controllers\AuthController;
 Route::post('login', [AuthController::class, 'login']);
 
 Route::group(['middleware' => ['auth:sanctum']], function () {
-    Route::get('/me', function(Request $request) {
-        return auth()->user();
-    });
-
+    Route::apiResource('/wines', WineController::class);
+    Route::apiResource('/user', UserController::class,[
+        'only' => ['index', 'show', 'update', 'destroy']
+    ]);
     Route::post('logout', [AuthController::class, 'logout']);
 });
+
+Route::resource('/user', UserController::class, [
+    'only' => ['store']
+]);
 
 Route::middleware('auth:sanctum')->get('/user', function (Request $request) {
     return $request->user();
 });
 
 //Route::apiResource('/wines', WineController::class, ['parameters' => ['wine' => 'id']]);
-
-Route::apiResource('/wines', WineController::class);
-Route::apiResource('/user', UserController::class);
