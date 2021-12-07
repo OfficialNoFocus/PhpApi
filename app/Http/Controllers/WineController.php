@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Wine;
 use Illuminate\Http\Request;
 use App\Http\Requests\WineRequest;
+use Illuminate\Support\Facades\Auth;
 
 
 class WineController extends Controller
@@ -16,7 +17,16 @@ class WineController extends Controller
      */
     public function index()
     {
-        return Wine::all();
+        $user = Auth::guard('sanctum')->user();
+
+        if($user->isAbleTo(['wine-read']))
+        {
+            return $this->sendResponse(Wine::all(), 'Successfully pulled all wines.');
+        }
+        else
+        {
+            return $this->sendError('Unauthorised.');
+        }
     }
 
     /**
@@ -27,11 +37,20 @@ class WineController extends Controller
      */
     public function store(WineRequest $request)
     {
-        $wine = new Wine();
-        $wine->fill($request->toArray());
-        $wine->save();
+        $user = Auth::guard('sanctum')->user();
 
-        return $wine;
+        if($user->isAbleTo(['wine-create']))
+        {
+            $wine = new Wine();
+            $wine->fill($request->toArray());
+            $wine->save();
+
+            return $this->sendResponse($wine, 'Successfully created a wine.');
+        }
+        else
+        {
+            return $this->sendError('Unauthorised.');
+        }
     }
 
     /**
@@ -42,7 +61,16 @@ class WineController extends Controller
      */
     public function show(Wine $wine)
     {
-        return $wine;
+        $user = Auth::guard('sanctum')->user();
+
+        if($user->isAbleTo(['wine-read']))
+        {
+            return $this->sendResponse($wine, 'Successfully pulled a wine.');
+        }
+        else
+        {
+            return $this->sendError('Unauthorised.');
+        }
     }
 
     /**
@@ -54,10 +82,18 @@ class WineController extends Controller
      */
     public function update(WineRequest $request, Wine $wine)
     {   
-        $wine->fill($request->toArray());
-        $wine->save();
-
-        return $wine;
+        $user = Auth::guard('sanctum')->user();
+        
+        if($user->isAbleTo(['wine-update']))
+        {
+            $wine->fill($request->toArray());
+            $wine->save();
+            return $this->sendResponse($wine, 'Wine has been successfully updated');
+        }
+        else
+        {
+            return $this->sendError('Unauthorised.');
+        }
     }
 
     /**
@@ -68,6 +104,17 @@ class WineController extends Controller
      */
     public function destroy(Wine $wine)
     {
-        return Wine::destroy($wine->id);
+        $user = Auth::guard('sanctum')->user();
+
+        if($user->isAbleTo(['wine-delete']))
+        {
+            Wine::destroy($wine->id);
+
+            return $this->sendResponse('Successfully deleted.');
+        }
+        else
+        {
+            return $this->sendError('Unauthorised.');
+        }
     }
 }

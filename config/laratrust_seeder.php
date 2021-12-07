@@ -14,10 +14,12 @@ return [
     'roles_structure' => [
         'administrator' => [
             'users' => 'c,r,u,d',
-            'role' => 'r,u'
+            'role' => 'r,u',
+            'wine' => 'c,r,u,d'
         ],
         'user' => [
-            'users' => 'r,u',
+            'users' => 'c,u,r,d',
+            'wine' => 'r',
         ],
     ],
 
