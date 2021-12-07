@@ -29,7 +29,8 @@ class UserController extends Controller
     {
         $user = new User();
         $user->fill($request->toArray());
-        
+        $user->password = bcrypt(request('password'));
+
         $user->save();
         $user->attachRole($request->role);
 
